@@ -1,0 +1,6 @@
+rootProject.name='Arzte'
+include ':app'
+include ':core'
+include ':testdata'
+include ':ui-primary-doctor-list'
+include ':ui-sdk'
