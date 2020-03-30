@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
-import ir.alirezaiyan.arzte.ui_sdk.R
 
 /**
  * @author Ali (alirezaiyann@gmail.com)

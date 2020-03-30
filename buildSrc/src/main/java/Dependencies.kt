@@ -26,6 +26,7 @@ object Versions {
     const val okHttpInterceptor = "3.8.1"
     const val retrofit = "2.6.0"
     const val retrofitGson = "2.6.0"
+    const val support = "1.0.0"
 
     const val lifecycle = "2.2.0-alpha04"
 
@@ -58,14 +59,16 @@ object AppPlugins {
     const val kotlinExt = "kotlin-android-extensions"
     const val kotlinKapt = "kotlin-kapt"
     const val kotlinAllOpen = "kotlin-allopen"
+    const val kotlinAllOpenDir = "ir.alirezaiyan.arzte.core.AllOpen"
 }
 
 object AppModule {
     const val app = ":app"
     const val core = ":core"
-    const val testData = ":testdata"
+    const val testSdk = ":test-sdk"
     const val uiSdk = ":ui-sdk"
-    const val uiPrimaryDoctorList = ":ui-primary-doctor-list"
+    const val androidTestSdk = ":androidtest-sdk"
+    const val uiPrimaryList = ":ui-primary-list"
 }
 
 object Deps {
@@ -93,6 +96,7 @@ object Deps {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofitGson}"
 
+    const val androidLegacy = "androidx.legacy:legacy-support-v4:${Versions.support}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
@@ -105,13 +109,16 @@ object Deps {
 
 
 object TestLibraries {
-    const val androidJUnitRunner = "ir.alirezaiyan.arzte.CustomTestRunner"
+    const val androidJUnitRunner = "ir.alirezaiyan.arzte.androidtest_sdk.MockTestRunner"
     const val fragmentTest = "androidx.fragment:fragment-testing:${Versions.fragmentTest}"
     const val junit = "junit:junit:${Versions.junit}"
     const val testExt = "androidx.test.ext:junit:${Versions.testExt}"
     const val runner = "androidx.test:runner:1.1.0"
     const val rules = "androidx.test:rules:1.2.0"
-    const val core = "androidx.arch.core:core-testing:2.0.0"
+    const val coreTesting = "androidx.arch.core:core-testing:2.0.1"
+    const val core = "androidx.test:core:1.2.0"
+    const val daggerMock = "com.github.fabioCollini.daggermock:daggermock:0.8.4"
+    const val daggerMockKotlin = "com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.4"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val espressoIntent = "androidx.test.espresso:espresso-intents:${Versions.espresso}"
     const val espressoContrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso}"

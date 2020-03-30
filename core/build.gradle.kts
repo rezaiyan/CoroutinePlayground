@@ -6,7 +6,7 @@ plugins {
     id(AppPlugins.kotlinAllOpen)
 }
 allOpen {
-    annotation("ir.alirezaiyan.arzte.core.AllOpen")
+    annotation(AppPlugins.kotlinAllOpenDir)
 }
 android {
 
@@ -44,5 +44,5 @@ dependencies {
     implementation(Deps.retrofitGson)
     implementation(Deps.okhttpInterceptor)
     kapt(Deps.daggerCompiler)
-    testImplementation(project(AppModule.testData))
+    testImplementation(project(AppModule.testSdk))
 }

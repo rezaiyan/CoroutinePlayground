@@ -38,7 +38,7 @@ android {
 
 dependencies {
     implementation(project(AppModule.core))
-    implementation(project(AppModule.uiPrimaryDoctorList))
+    implementation(project(AppModule.uiPrimaryList))
     implementation(Deps.kotlin)
     implementation(Deps.dagger)
     kapt(Deps.daggerCompiler)

@@ -1,7 +1,7 @@
 package ir.alirezaiyan.arzte.core
 
 import ir.alirezaiyan.arzte.core.entity.Doctor
-import ir.alirezaiyan.test.UnitTest
+import ir.alirezaiyan.arzte.testdata.UnitTest
 import org.junit.Test
 
 /**
