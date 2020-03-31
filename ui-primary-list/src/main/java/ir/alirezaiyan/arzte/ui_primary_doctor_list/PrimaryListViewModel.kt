@@ -1,9 +1,9 @@
 package ir.alirezaiyan.arzte.ui_primary_doctor_list
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ir.alirezaiyan.arzte.core.OpenForTesting
 import ir.alirezaiyan.arzte.core.entity.Doctor
-import ir.alirezaiyan.arzte.ui_sdk.BaseViewModel
 import ir.alirezaiyan.arzte.ui_sdk.utils.ViewStateStoreFactory
 import javax.inject.Inject
 
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class PrimaryListViewModel  @Inject constructor(
     private val useCase : PrimaryListUseCase,
     factory: ViewStateStoreFactory
-) : BaseViewModel() {
+) : ViewModel() {
 
     val state = factory(useCase.initialState(), viewModelScope)
 
@@ -25,6 +25,4 @@ class PrimaryListViewModel  @Inject constructor(
 
     fun openDoctorDetail(doctor: Doctor) = state.dispatchSignal(useCase.openDetail(doctor))
 
-    override fun cancelRequest() {
-    }
 }
