@@ -3,7 +3,7 @@ package ir.alirezaiyan.arzte.core
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import ir.alirezaiyan.arzte.core.remote.ApiService
+import ir.alirezaiyan.arzte.core.remote.DoctorsApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,10 +34,13 @@ class ApiModule {
         }
         return okHttpClientBuilder.build()
     }
+    @Provides
+    @Singleton
+    fun provideApi(retrofit: Retrofit) = retrofit.create(DoctorsApi::class.java)
 }
 
 interface ApiDependencies {
-    val api: ApiService
+    val api: DoctorsApi
 }
 
 @Singleton

@@ -1,11 +1,6 @@
 package ir.alirezaiyan.arzte.core
 
-import ir.alirezaiyan.arzte.core.entity.Doctor
-import ir.alirezaiyan.arzte.core.entity.DoctorResponse
-import ir.alirezaiyan.arzte.core.ext.Either
-import ir.alirezaiyan.arzte.core.ext.Failure
-import ir.alirezaiyan.arzte.core.remote.ApiService
-import retrofit2.Call
+import ir.alirezaiyan.arzte.core.remote.DoctorsApi
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,7 +10,7 @@ import javax.inject.Singleton
  */
 @OpenForTesting
 @Singleton
-class ArzteRepository @Inject constructor(private val api: ApiService){
+class ArzteRepository @Inject constructor(private val api: DoctorsApi){
 
     suspend fun doctors(lastKey : String) = api.doctors(lastKey)
 
