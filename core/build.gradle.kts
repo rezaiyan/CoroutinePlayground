@@ -44,5 +44,7 @@ dependencies {
     implementation(Deps.retrofitGson)
     implementation(Deps.okhttpInterceptor)
     kapt(Deps.daggerCompiler)
+    api(Deps.lifecycleViewModel)
+    api(Deps.lifecycleExtension)
     testImplementation(project(AppModule.testSdk))
 }

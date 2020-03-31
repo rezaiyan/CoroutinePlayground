@@ -1,7 +1,7 @@
 package ir.alirezaiyan.arzte.ui_primary_doctor_list
 
 import ir.alirezaiyan.arzte.core.entity.Doctor
-import ir.alirezaiyan.arzte.ui_sdk.utils.Lce
+import ir.alirezaiyan.arzte.core.utils.State
 
 /**
  * @author Ali (alirezaiyann@gmail.com)
@@ -16,9 +16,9 @@ data class DoctorsViewState(
     val emptyStateVisible: Boolean = requestInvoked && list.isEmpty()
 }
 
-data class PrimaryListState(
+data class PrimaryListResponse(
     var nextKey: String = "",
-    val state: Lce<DoctorsViewState> = Lce.Success(DoctorsViewState(emptyList()))
+    val state: State<DoctorsViewState> = State.Success(DoctorsViewState(emptyList()))
 ) {
     fun clear() {
         nextKey = ""

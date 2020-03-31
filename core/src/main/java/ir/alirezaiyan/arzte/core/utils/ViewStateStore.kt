@@ -1,4 +1,4 @@
-package ir.alirezaiyan.arzte.ui_sdk.utils
+package ir.alirezaiyan.arzte.core.utils
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

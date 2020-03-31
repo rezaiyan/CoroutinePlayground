@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListViewModel" />
 
         <variable
-            name="state"
-            type="ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListState" />
+            name="response"
+            type="ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListResponse" />
     </data>
 
-    <ir.alirezaiyan.arzte.ui_sdk.utils.LceContainer
+    <ir.alirezaiyan.arzte.ui_sdk.utils.StateLayout
         android:id="@+id/lce"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lce="@{state.state}"
+        app:state="@{response.state}"
         app:retryAction="@{() -> viewModel.refresh()}">
 
 
@@ -31,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                app:visibleOrGone="@{!state.doctorsState.loading}"
+                app:visibleOrGone="@{!response.doctorsState.loading}"
                 android:indeterminate="true" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -42,6 +41,6 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/support_simple_spinner_dropdown_item" />
         </RelativeLayout>
-    </ir.alirezaiyan.arzte.ui_sdk.utils.LceContainer>
+        </ir.alirezaiyan.arzte.ui_sdk.utils.StateLayout>
 </layout>
 

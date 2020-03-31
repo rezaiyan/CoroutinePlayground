@@ -1,4 +1,4 @@
-package ir.alirezaiyan.arzte.ui_sdk.utils
+package ir.alirezaiyan.arzte.core.utils
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector

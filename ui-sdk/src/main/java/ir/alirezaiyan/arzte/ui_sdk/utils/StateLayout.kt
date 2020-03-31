@@ -7,25 +7,26 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.children
+import ir.alirezaiyan.arzte.core.utils.State
 import ir.alirezaiyan.arzte.ui_sdk.R
 import ir.alirezaiyan.arzte.ui_sdk.ext.visibleOrGone
 
-class LceContainer<T> : FrameLayout {
+class StateLayout<T> : FrameLayout {
 
     private var loading: View
     private var error: View
     private var errorMessage: TextView
     private var retry: View
 
-    var lce: Lce<T>? = null
+    var state: State<T>? = null
         set(value) {
             when (value) {
-                is Lce.Loading -> children.forEach { it.visibleOrGone = it == loading }
-                is Lce.Success -> {
+                is State.Loading -> children.forEach { it.visibleOrGone = it == loading }
+                is State.Success -> {
                     children.forEach { it.visibleOrGone = it != loading && it != error }
                     updateListener?.invoke(value.data)
                 }
-                is Lce.Error -> {
+                is State.Error -> {
                     children.forEach { it.visibleOrGone = it == error }
                     errorMessage.text = value.message
                 }

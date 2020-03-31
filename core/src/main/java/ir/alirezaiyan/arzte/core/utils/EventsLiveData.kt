@@ -1,4 +1,4 @@
-package ir.alirezaiyan.arzte.ui_sdk.utils
+package ir.alirezaiyan.arzte.core.utils
 
 import android.util.Log
 import androidx.annotation.MainThread

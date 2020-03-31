@@ -9,8 +9,8 @@ import ir.alirezaiyan.arzte.ui_primary_doctor_list.databinding.PrimaryFragmentBi
 import ir.alirezaiyan.arzte.ui_sdk.BaseFragment
 import ir.alirezaiyan.arzte.ui_sdk.DataBoundListAdapter
 import ir.alirezaiyan.arzte.ui_sdk.uiSdkComponent
-import ir.alirezaiyan.arzte.ui_sdk.utils.ErrorSignal
-import ir.alirezaiyan.arzte.ui_sdk.utils.NavigationSignal
+import ir.alirezaiyan.arzte.core.utils.ErrorSignal
+import ir.alirezaiyan.arzte.core.utils.NavigationSignal
 import ir.alirezaiyan.arzte.ui_sdk.utils.viewModel
 
 class PrimaryListFragment : BaseFragment() {
@@ -41,7 +41,7 @@ class PrimaryListFragment : BaseFragment() {
         binding.primaryList.adapter = adapter
 
         viewModel.state.observe(this) {
-            binding.state = it
+            binding.response = it
             it.state.data?.let {
                 adapter.update(it.list)  }
             binding.executePendingBindings()

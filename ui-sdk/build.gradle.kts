@@ -38,8 +38,6 @@ dependencies {
     api(Deps.material)
     api(Deps.navigationUI)
     api(Deps.navigationFragment)
-    api(Deps.lifecycleViewModel)
-    implementation(Deps.lifecycleExtension)
     implementation(Deps.dagger)
     kapt(Deps.daggerCompiler)
 }

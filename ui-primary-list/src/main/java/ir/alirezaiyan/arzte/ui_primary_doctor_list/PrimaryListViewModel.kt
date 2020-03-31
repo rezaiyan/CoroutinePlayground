@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ir.alirezaiyan.arzte.core.OpenForTesting
 import ir.alirezaiyan.arzte.core.entity.Doctor
-import ir.alirezaiyan.arzte.ui_sdk.utils.ViewStateStoreFactory
+import ir.alirezaiyan.arzte.core.utils.ViewStateStoreFactory
 import javax.inject.Inject
 
 /**

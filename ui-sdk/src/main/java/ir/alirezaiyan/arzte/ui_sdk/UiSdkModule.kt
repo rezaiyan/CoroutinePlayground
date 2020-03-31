@@ -11,7 +11,7 @@ import ir.alirezaiyan.arzte.core.OpenForTesting
 import ir.alirezaiyan.arzte.core.utils.ComponentHolder
 import ir.alirezaiyan.arzte.core.utils.get
 import ir.alirezaiyan.arzte.core.utils.getOrCreate
-import ir.alirezaiyan.arzte.ui_sdk.utils.ViewStateStoreFactory
+import ir.alirezaiyan.arzte.core.utils.ViewStateStoreFactory
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 

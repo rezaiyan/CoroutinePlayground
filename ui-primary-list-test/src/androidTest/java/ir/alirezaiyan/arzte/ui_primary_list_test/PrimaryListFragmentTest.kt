@@ -16,9 +16,9 @@ import ir.alirezaiyan.arzte.testdata.TestData.DOCTOR_2
 import ir.alirezaiyan.arzte.testdata.TestData.TEST_DISPATCHER
 import ir.alirezaiyan.arzte.ui_primary_doctor_list.DoctorsViewState
 import ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListViewModel
-import ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListState
-import ir.alirezaiyan.arzte.ui_sdk.utils.Lce
-import ir.alirezaiyan.arzte.ui_sdk.utils.ViewStateStore
+import ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListResponse
+import ir.alirezaiyan.arzte.core.utils.State
+import ir.alirezaiyan.arzte.core.utils.ViewStateStore
 import it.cosenonjaviste.daggermock.DaggerMock
 import it.cosenonjaviste.daggermock.interceptor
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +41,7 @@ class PrimaryListFragmentTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     private val viewStateStore by lazy {
-        ViewStateStore(PrimaryListState(), CoroutineScope(Dispatchers.Main), TEST_DISPATCHER)
+        ViewStateStore(PrimaryListResponse(), CoroutineScope(Dispatchers.Main), TEST_DISPATCHER)
     }
 
     private val viewModel = mock<PrimaryListViewModel> {
@@ -58,7 +58,7 @@ class PrimaryListFragmentTest {
     fun testLoading() {
         fragmentRule.launchFragment(Unit)
 
-        viewModel.state.dispatchState(PrimaryListState(state = Lce.Loading))
+        viewModel.state.dispatchState(PrimaryListResponse(state = State.Loading))
 
         onView(withId(R.id.progress_bar)).check(matches(isDisplayed()))
         onView(withId(R.id.retry)).check(matches(not(isDisplayed())))
@@ -68,9 +68,9 @@ class PrimaryListFragmentTest {
     fun testValueWhileLoading() {
         fragmentRule.launchFragment(Unit)
 
-        viewModel.state.dispatchState(PrimaryListState(state = Lce.Loading))
+        viewModel.state.dispatchState(PrimaryListResponse(state = State.Loading))
 
-        viewModel.state.dispatchState(PrimaryListState(state = Lce.Success(DoctorsViewState(listOf(
+        viewModel.state.dispatchState(PrimaryListResponse(state = State.Success(DoctorsViewState(listOf(
             DOCTOR_1, DOCTOR_2)))))
 
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))

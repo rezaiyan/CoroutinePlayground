@@ -2,7 +2,7 @@ package ir.alirezaiyan.arzte.ui_primary_doctor_list
 
 import ir.alirezaiyan.arzte.core.ArzteRepository
 import ir.alirezaiyan.arzte.core.entity.Doctor
-import ir.alirezaiyan.arzte.ui_sdk.utils.*
+import ir.alirezaiyan.arzte.core.utils.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -12,12 +12,12 @@ import javax.inject.Inject
  */
 class PrimaryListUseCase @Inject constructor(private val repository: ArzteRepository){
 
-    fun initialState() = PrimaryListState()
+    fun initialState() = PrimaryListResponse()
 
     fun openDetail(doctor: Doctor) = NavigationSignal("doctor", doctor)
 
-    fun loadNextPage(state: PrimaryListState): ActionsFlow<PrimaryListState> = actionsFlow<DoctorsViewState> {
-            state.state.doOnData { (_,key,_,loading) ->
+    fun loadNextPage(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> = actionsFlow<DoctorsViewState> {
+            response.state.doOnData { (_,key,_,loading) ->
                 if(key.isNullOrEmpty() && !loading){
                     emit{ copy(loading = true) }
                     try {
@@ -33,14 +33,14 @@ class PrimaryListUseCase @Inject constructor(private val repository: ArzteReposi
             }
         }.mapActions { stateAction -> copy(state = this.state.map { stateAction(it) }) }
 
-    fun load(state: PrimaryListState): ActionsFlow<PrimaryListState> = lce {
-        val (lastKey, doctors) = repository.doctors(state.nextKey)
+    fun load(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> = state {
+        val (lastKey, doctors) = repository.doctors(response.nextKey)
         DoctorsViewState(list = doctors, nextKey = lastKey, requestInvoked = true, loading = true)
     }.mapActions { stateAction -> copy(state = stateAction(this.state)) }
 
-    fun refresh(state: PrimaryListState): ActionsFlow<PrimaryListState> {
-        return load(state).also {
-            state.clear()
+    fun refresh(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> {
+        return load(response).also {
+            response.clear()
         }
     }
 
