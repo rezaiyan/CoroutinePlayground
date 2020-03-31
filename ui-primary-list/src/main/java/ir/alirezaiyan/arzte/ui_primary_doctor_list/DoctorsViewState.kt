@@ -9,7 +9,7 @@ import ir.alirezaiyan.arzte.core.utils.State
  */
 data class DoctorsViewState(
     val list: List<Doctor>,
-    val nextKey: String? = null,
+    val nextKey: String? = "",
     val requestInvoked: Boolean = false,
     val loading : Boolean = false
 ){

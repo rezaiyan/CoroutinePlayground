@@ -16,14 +16,16 @@ class PrimaryListUseCase @Inject constructor(private val repository: ArzteReposi
 
     fun openDetail(doctor: Doctor) = NavigationSignal("doctor", doctor)
 
-    fun loadNextPage(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> = actionsFlow<DoctorsViewState> {
+    fun load(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> = actionsFlow<DoctorsViewState> {
             response.state.doOnData { (_,key,_,loading) ->
-                if(key.isNullOrEmpty() && !loading){
+                if (key == null) return@doOnData
+                val shadowKey = if (key.isEmpty()) "" else "-${key}"
+                if(!loading){
                     emit{ copy(loading = true) }
                     try {
-                        val (lastKey, doctors) = repository.doctors(key!!)
+                        val (lastKey, doctors) = repository.doctors(shadowKey)
                         emit {
-                            DoctorsViewState(list = doctors, nextKey = lastKey, requestInvoked = true, loading = true)
+                            DoctorsViewState(list = doctors, nextKey = lastKey, requestInvoked = true, loading = false)
                         }
                     }catch (t : Exception){
                         emit { copy(loading = false) }
@@ -32,11 +34,6 @@ class PrimaryListUseCase @Inject constructor(private val repository: ArzteReposi
                 }
             }
         }.mapActions { stateAction -> copy(state = this.state.map { stateAction(it) }) }
-
-    fun load(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> = state {
-        val (lastKey, doctors) = repository.doctors(response.nextKey)
-        DoctorsViewState(list = doctors, nextKey = lastKey, requestInvoked = true, loading = true)
-    }.mapActions { stateAction -> copy(state = stateAction(this.state)) }
 
     fun refresh(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> {
         return load(response).also {

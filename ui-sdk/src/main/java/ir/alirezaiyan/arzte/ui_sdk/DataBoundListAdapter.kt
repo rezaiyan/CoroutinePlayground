@@ -21,7 +21,7 @@ class DataBoundListAdapter<T : Any, V : ViewDataBinding>(
 
     fun update(update: List<T>) {
         this.items.addAll(update)
-        notifyItemInserted(0)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = items.size

@@ -1,9 +1,10 @@
 package ir.alirezaiyan.arzte.ui_sdk
 
-import android.annotation.SuppressLint
 import android.content.Context
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.component.view.*
 
@@ -11,21 +12,27 @@ import kotlinx.android.synthetic.main.component.view.*
  * @author Ali (alirezaiyann@gmail.com)
  * @since 3/6/2020 12:44 PM.
  */
-@SuppressLint("ViewConstructor")
-class ListComponent<VH : RecyclerView.ViewHolder?> private constructor(
+class ListComponent<T : Any, V : ViewDataBinding>(
     context: Context,
-    title: String?,
-    layoutManager: RecyclerView.LayoutManager,
-    scrollListener: EndlessOnScrollListener,
-    adapter: RecyclerView.Adapter<VH>
+    attrs: AttributeSet?,
+    defStyleAttr: Int,
+    defStyleRes: Int
 ) : LinearLayout(context) {
 
-    init {
+    constructor(context: Context) : this(context, null, 0, 0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, 0)
+
+    constructor(
+        context: Context,
+        title: String?,
+        layoutManager: RecyclerView.LayoutManager,
+        scrollListener: EndlessOnScrollListener,
+        adapter: DataBoundListAdapter<T,V>
+    ) : this(context){
         LayoutInflater.from(context)
             .inflate(R.layout.component, this, true)
-
         orientation = VERTICAL
-
         prepare(title, layoutManager, scrollListener, adapter)
     }
 
@@ -33,9 +40,8 @@ class ListComponent<VH : RecyclerView.ViewHolder?> private constructor(
         title: String?,
         layoutManager: RecyclerView.LayoutManager,
         scrollListener: EndlessOnScrollListener,
-        adapter: RecyclerView.Adapter<VH>
+        adapter: DataBoundListAdapter<T,V>
     ) {
-
         componentTitle.text = title
         componentList.apply {
             this.layoutManager = layoutManager
@@ -47,21 +53,13 @@ class ListComponent<VH : RecyclerView.ViewHolder?> private constructor(
 
     }
 
-    data class Builder<VH : RecyclerView.ViewHolder>(var context: Context) {
+    data class Builder<T : Any, V : ViewDataBinding>(var context: Context) {
 
         var title: String? = ""
-        private lateinit var scrollListener: EndlessOnScrollListener
-        private lateinit var layoutManager: RecyclerView.LayoutManager
-        private lateinit var adapter: RecyclerView.Adapter<VH>
+        lateinit var scrollListener: EndlessOnScrollListener
+        lateinit var layoutManager: RecyclerView.LayoutManager
+        lateinit var adapter: DataBoundListAdapter<T,V>
 
-        fun title(title: String) = apply { this.title = title }
-        fun layoutManager(layoutManager: RecyclerView.LayoutManager) =
-            apply { this.layoutManager = layoutManager }
-
-        fun scrollListener(scrollListener: EndlessOnScrollListener) =
-            apply { this.scrollListener = scrollListener }
-
-        fun adapter(adapter: RecyclerView.Adapter<VH>) = apply { this.adapter = adapter }
         fun build() = ListComponent(context, title, layoutManager, scrollListener, adapter)
     }
 
