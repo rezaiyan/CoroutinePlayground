@@ -36,6 +36,12 @@ class PrimaryListFragment : BaseFragment() {
         return binding.root
     }
 
+    private val endlessOnScrollListener = object : EndlessOnScrollListener() {
+        override fun onLoadMore() {
+            viewModel.loadDoctors()
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.loadDoctors()
@@ -46,11 +52,7 @@ class PrimaryListFragment : BaseFragment() {
                 title = getString(R.string.primaryListTitle)
                 layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
                 adapter = dataBoundListAdapter
-                scrollListener = object : EndlessOnScrollListener() {
-                    override fun onLoadMore() {
-                        viewModel.loadDoctors()
-                    }
-                }
+                scrollListener = endlessOnScrollListener
             }.build()
         primaryContainer.addView(listComponent)
 
@@ -66,7 +68,10 @@ class PrimaryListFragment : BaseFragment() {
 
         viewModel.state.observeSignals(this) {
             when (it) {
-                is ErrorSignal -> navigationController.showError(requireActivity(), it.message)
+                is ErrorSignal -> {
+                    navigationController.showError(requireActivity(), it.message)
+                    endlessOnScrollListener.onFailure()
+                }
                 is NavigationSignal<*> -> navigationController.navigateDetail(this, it.params as Doctor)
             }
         }
