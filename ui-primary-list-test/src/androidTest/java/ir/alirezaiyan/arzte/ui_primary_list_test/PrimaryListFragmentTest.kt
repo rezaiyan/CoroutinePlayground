@@ -2,23 +2,24 @@ package ir.alirezaiyan.arzte.ui_primary_list_test
 
 import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.doAnswer
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import ir.alirezaiyan.arzte.androidtest_sdk.FragmentTestRule
 import ir.alirezaiyan.arzte.androidtest_sdk.TestApplication
+import ir.alirezaiyan.arzte.core.entity.Doctor
+import ir.alirezaiyan.arzte.core.utils.State
+import ir.alirezaiyan.arzte.core.utils.ViewStateStore
 import ir.alirezaiyan.arzte.testdata.TestData.DOCTOR_1
 import ir.alirezaiyan.arzte.testdata.TestData.DOCTOR_2
 import ir.alirezaiyan.arzte.testdata.TestData.TEST_DISPATCHER
-import ir.alirezaiyan.arzte.ui_primary_doctor_list.DoctorsViewState
-import ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListViewModel
-import ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListResponse
-import ir.alirezaiyan.arzte.core.utils.State
-import ir.alirezaiyan.arzte.core.utils.ViewStateStore
+import ir.alirezaiyan.arzte.ui_primary_list.*
 import it.cosenonjaviste.daggermock.DaggerMock
 import it.cosenonjaviste.daggermock.interceptor
 import kotlinx.coroutines.CoroutineScope
@@ -74,5 +75,19 @@ class PrimaryListFragmentTest {
             DOCTOR_1, DOCTOR_2)))))
 
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun testLoadMoreList() {
+        fragmentRule.launchFragment(Unit)
+        val list = mutableListOf<Doctor>()
+        repeat(20) { list.add(DOCTOR_1) }
+
+        viewModel.state.dispatchState(PrimaryListResponse(state = State.Success(DoctorsViewState(list))))
+
+        onView(withId(R.id.componentList))
+            .perform(RecyclerViewActions.scrollToPosition<VerticalDoctorViewHolder>(20))
+
+        verify(viewModel).loadDoctors()
     }
 }

@@ -5,5 +5,5 @@
             app:startDestination="@+id/primaryList">
     <fragment
         android:id="@+id/primaryList"
-        android:name="ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListFragment"/>
+        android:name="ir.alirezaiyan.arzte.ui_primary_list.PrimaryListFragment"/>
 </navigation>

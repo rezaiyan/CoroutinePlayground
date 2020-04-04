@@ -33,7 +33,9 @@ android {
     }
 
 }
-
+configurations{
+    compile.configure { exclude("org.jetbrains.kotlinx","atomicfu-common") }
+}
 dependencies {
     implementation(Deps.kotlin)
     api(Deps.coroutines)
@@ -44,7 +46,13 @@ dependencies {
     implementation(Deps.retrofitGson)
     implementation(Deps.okhttpInterceptor)
     kapt(Deps.daggerCompiler)
-    api(Deps.lifecycleViewModel)
-    api(Deps.lifecycleExtension)
+    api(Deps.lifecycleViewModel){
+        exclude("org.jetbrains.kotlinx","kotlinx-coroutines-core")
+        exclude("org.jetbrains.kotlinx","kotlinx-coroutines-android")
+    }
+    api(Deps.lifecycleExtension){
+        exclude("org.jetbrains.kotlinx","kotlinx-coroutines-core")
+        exclude("org.jetbrains.kotlinx","kotlinx-coroutines-android")
+    }
     testImplementation(project(AppModule.testSdk))
 }

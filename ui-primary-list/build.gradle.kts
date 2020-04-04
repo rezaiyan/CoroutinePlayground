@@ -40,5 +40,6 @@ dependencies {
     implementation(project(AppModule.core))
     implementation(Deps.kotlin)
     implementation(Deps.dagger)
+    testImplementation(project(AppModule.testSdk))
     kapt(Deps.daggerCompiler)
 }

@@ -11,9 +11,10 @@ object App {
 
 object Versions {
     const val gradle = "3.5.3"
-    const val kotlin = "1.3.10"
+    const val kotlin = "1.3.30"
+    const val assertK = "0.13"
     const val timber = "4.7.1"
-    const val coroutines = "1.3.4"
+    const val coroutines = "1.2.0"
 
     const val appcompat = "1.1.0"
     const val material = "1.1.0-alpha10"
@@ -99,6 +100,7 @@ object Deps {
     const val androidLegacy = "androidx.legacy:legacy-support-v4:${Versions.support}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
+    const val assertK = "com.willowtreeapps.assertk:assertk-jvm:${Versions.assertK}"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     const val coroutinesTest =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"

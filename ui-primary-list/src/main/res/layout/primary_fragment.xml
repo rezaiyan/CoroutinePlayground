@@ -5,11 +5,11 @@
     <data>
         <variable
             name="viewModel"
-            type="ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListViewModel" />
+            type="ir.alirezaiyan.arzte.ui_primary_list.PrimaryListViewModel" />
 
         <variable
             name="response"
-            type="ir.alirezaiyan.arzte.ui_primary_doctor_list.PrimaryListResponse" />
+            type="ir.alirezaiyan.arzte.ui_primary_list.PrimaryListResponse" />
     </data>
 
     <ir.alirezaiyan.arzte.ui_sdk.utils.StateLayout

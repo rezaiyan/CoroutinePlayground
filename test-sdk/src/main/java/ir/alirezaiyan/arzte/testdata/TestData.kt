@@ -11,6 +11,6 @@ object TestData {
     val DOCTOR_3 = Doctor("3", "name3", "https://png.pngtree.com/png-clipart/20190516/original/pngtree-users-vector-icon-png-image_3725294.jpg", "Address")
     val DOCTOR_4 = Doctor("4", "name4", "https://png.pngtree.com/png-clipart/20190516/original/pngtree-users-vector-icon-png-image_3725294.jpg", "Address")
 
-    val TEST_DISPATCHER = AsyncTask.THREAD_POOL_EXECUTOR.asCoroutineDispatcher()
+//    val TEST_DISPATCHER = AsyncTask.THREAD_POOL_EXECUTOR.asCoroutineDispatcher()
 
 }

@@ -4,6 +4,7 @@ plugins {
 }
 android {
 
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
     compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
     compileSdkVersion(App.compileSdk)
@@ -31,6 +32,7 @@ android {
 dependencies {
     implementation(project(AppModule.core))
     implementation(Deps.kotlin)
+    api(Deps.assertK)
     api(TestLibraries.junit)
     api(TestLibraries.mockitoKotlin)
     api(TestLibraries.coreTesting){
