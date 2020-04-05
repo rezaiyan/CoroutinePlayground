@@ -33,7 +33,7 @@ class PrimaryListUseCaseTest {
 
     @Test
     fun user() = runBlocking{
-        on { repository.doctors("") } doReturn DoctorResponse("",listOf(DOCTOR_1, DOCTOR_2))
+        on { repository.doctors(KEY0) } doReturn DoctorResponse(KEY1,listOf(DOCTOR_1, DOCTOR_2))
 
         val initialState = PrimaryListResponse()
         val states = useCase.load(initialState)
@@ -52,7 +52,7 @@ class PrimaryListUseCaseTest {
 
     @Test
     fun emptyStateVisible() {
-        on { repository.doctors("") } doReturn DoctorResponse("", emptyList())
+        on { repository.doctors(KEY0) } doReturn DoctorResponse(KEY1, emptyList())
 
         val initialState = PrimaryListResponse()
         val states = useCase.load(initialState)
@@ -78,8 +78,8 @@ class PrimaryListUseCaseTest {
 
     @Test
     fun loadMore() {
-        on { repository.doctors("") } doReturn response(DOCTOR_1, DOCTOR_2, "abcd")
-        on { repository.doctors("-abcd") } doReturn response(DOCTOR_3, DOCTOR_4, "efgh")
+        on { repository.doctors(KEY0) } doReturn response(DOCTOR_1, DOCTOR_2, KEY1)
+        on { repository.doctors("-$KEY1") } doReturn response(DOCTOR_3, DOCTOR_4, KEY2)
 
         val initialState = PrimaryListResponse()
         val lastState = useCase.load(initialState)
@@ -104,8 +104,8 @@ class PrimaryListUseCaseTest {
 
     @Test
     fun errorLoadingMore() {
-        on { repository.doctors("") } doReturn response(DOCTOR_1, DOCTOR_2, "abcd")
-        on { repository.doctors("-abcd") } doThrow RuntimeException("error")
+        on { repository.doctors(KEY0) } doReturn response(DOCTOR_1, DOCTOR_2, KEY1)
+        on { repository.doctors("-$KEY1") } doThrow RuntimeException(ERROR)
 
         val initialState = PrimaryListResponse()
         val lastState = useCase.load(initialState)
@@ -130,7 +130,13 @@ class PrimaryListUseCaseTest {
         assertThat(signals.last())
             .isInstanceOf(ErrorSignal::class)
             .prop(ErrorSignal::message)
-            .isEqualTo("error")
+            .isEqualTo(ERROR)
     }
 
+    companion object{
+        const val ERROR = "error"
+        const val KEY0 = ""
+        const val KEY1 = "abcd"
+        const val KEY2 = "efgh"
+    }
 }
