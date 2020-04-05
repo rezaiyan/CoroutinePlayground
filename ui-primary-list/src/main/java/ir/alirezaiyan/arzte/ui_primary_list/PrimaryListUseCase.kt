@@ -18,14 +18,31 @@ class PrimaryListUseCase @Inject constructor(private val repository: ArzteReposi
 
     fun load(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> = actionsFlow<DoctorsViewState> {
             response.state.doOnData { (_,key,_,loading) ->
-                if (key == null) return@doOnData
-                val shadowKey = if (key.isEmpty()) "" else "-${key}"
+                if(!loading){
+                    emit{ copy(loading = true) }
+                    try {
+                        val (lastKey, doctors) = repository.doctors(key!!)
+                        emit {
+                            DoctorsViewState(list = doctors, nextKey = lastKey, requestInvoked = true, loading = false)
+                        }
+                    }catch (t : Exception){
+                        emit { copy(loading = false) }
+                        emit(ErrorSignal(t))
+                    }
+                }
+            }
+        }.mapActions { stateAction -> copy(state = this.state.map { stateAction(it) }) }
+
+    fun loadMore(response: PrimaryListResponse): ActionsFlow<PrimaryListResponse> = actionsFlow<DoctorsViewState> {
+            response.state.doOnData { (_,key,_,loading) ->
+                val shadowKey: String?
+                if (key == null) return@doOnData else shadowKey = "-${key}"
                 if(!loading){
                     emit{ copy(loading = true) }
                     try {
                         val (lastKey, doctors) = repository.doctors(shadowKey)
                         emit {
-                            DoctorsViewState(list = doctors, nextKey = lastKey, requestInvoked = true, loading = false)
+                            DoctorsViewState(list = list + doctors, nextKey = lastKey, requestInvoked = true, loading = false)
                         }
                     }catch (t : Exception){
                         emit { copy(loading = false) }

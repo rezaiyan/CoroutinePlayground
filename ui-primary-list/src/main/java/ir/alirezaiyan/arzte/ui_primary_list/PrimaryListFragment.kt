@@ -38,7 +38,7 @@ class PrimaryListFragment : BaseFragment() {
 
     private val endlessOnScrollListener = object : EndlessOnScrollListener() {
         override fun onLoadMore() {
-            viewModel.loadDoctors()
+            viewModel.loadMoreDoctors()
         }
     }
 

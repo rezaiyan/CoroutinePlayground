@@ -21,7 +21,7 @@ class PrimaryListViewModel  @Inject constructor(
 
     fun loadDoctors() = state.dispatchActions(useCase.load(state()))
 
-//    fun loadMore() = state.dispatchActions(useCase.loadNextPage(state()))
+    fun loadMoreDoctors() = state.dispatchActions(useCase.loadMore(state()))
 
     fun refresh() = state.dispatchActions(useCase.refresh(state()))
 
