@@ -45,6 +45,7 @@ dependencies {
     implementation(Deps.retrofit)
     implementation(Deps.retrofitGson)
     implementation(Deps.okhttpInterceptor)
+    testImplementation(TestLibraries.kluent)
     kapt(Deps.daggerCompiler)
     api(Deps.lifecycleViewModel){
         exclude("org.jetbrains.kotlinx","kotlinx-coroutines-core")

@@ -37,7 +37,7 @@ android {
 
 dependencies {
     api(project(AppModule.uiSdk))
-    implementation(project(AppModule.core))
+    api(project(AppModule.core))
     implementation(Deps.kotlin)
     implementation(Deps.dagger)
     testImplementation(project(AppModule.testSdk))

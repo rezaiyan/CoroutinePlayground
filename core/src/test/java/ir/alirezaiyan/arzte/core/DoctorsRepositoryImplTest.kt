@@ -2,6 +2,7 @@ package ir.alirezaiyan.arzte.core
 
 import ir.alirezaiyan.arzte.core.entity.Doctor
 import ir.alirezaiyan.arzte.testdata.UnitTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 /**
@@ -14,22 +15,22 @@ class DoctorsRepositoryImplTest : UnitTest() {
     private val mockResponse = listOf(Doctor())
 
     @Test
-    fun serverErrorTest() {
+    fun serverErrorTest() = runBlocking{
         DoctorRepositoryBot()
             .responseBeSuccessful(false)
             .warmUp()
-            .run(mockResponse)
+            .runWith(lastKey,mockResponse)
             .verifyDoctors(lastKey)
     }
 
     @Test
-    fun successfulResultTest() {
+    fun successfulResultTest() = runBlocking {
         DoctorRepositoryBot()
             .responseBeSuccessful(true)
             .doctorsReturnsThisCall(lastKey)
             .responseBodyReturns(mockResponse)
             .warmUp()
-            .run(mockResponse)
+            .runWith(lastKey, mockResponse)
             .verifyDoctors(lastKey)
     }
 
